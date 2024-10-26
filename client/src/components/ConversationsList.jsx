@@ -3,7 +3,7 @@ import Conversation from './Conversation'
 
 const ConversationsList = () => {
   return (
-    <div>
+    <div className='overflow-auto'>
       <Conversation />
       <Conversation />
       <Conversation />
