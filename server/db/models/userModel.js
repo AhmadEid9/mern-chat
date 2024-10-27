@@ -16,10 +16,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlenght: 6
     },
-    birthdate: {
-        type: Date,
-        required: true
-    },
     gender: {
         type: String,
         required: true,

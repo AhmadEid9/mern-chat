@@ -11,14 +11,12 @@ import userRouter from "./routers/userRouter.js" ;
 
 const app = express()
 
-app.use(express.json())
-app.use(cookieParser())
 app.use(cors({
     origin: '*',
-    methods: '*',
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
   }));
+app.use(express.json())
+app.use(cookieParser())
 
 app.use((req, res, next) => {
     console.log(req.path, req.method, res.statusCode);
@@ -32,5 +30,5 @@ app.use('/api/users', userRouter)
 
 app.listen(process.env.PORT, () => {
     connectMongoDB();
-    console.log("Server started on port 3000")
+    console.log("Server started on port 4000")
 })
