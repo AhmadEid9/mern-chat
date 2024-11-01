@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import Conversation from './Conversation'
 import useGetConversations from '../hooks/useGetConversations'
 import { getRandomEmoji } from '../utils/emijos'

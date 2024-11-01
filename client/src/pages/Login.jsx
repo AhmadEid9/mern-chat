@@ -12,6 +12,13 @@ const Login = () => {
     password: ''
   })
 
+  const handleEnterKeyDown = async (event) => {
+    if (event.key === "Enter")
+    {
+      handleLogin()
+    }
+  }
+
   const handleLogin = async() => {
     setLoading(true)
     try {
@@ -21,7 +28,7 @@ const Login = () => {
       }
       const res = await axios.post('/api/auth/login', inputs, {withCredentials: true})
 
-      localStorage.setItem('chat-user', res.data)
+      localStorage.setItem("chat-user", JSON.stringify(res.data));
       setAuthUser(res.data)
 
       toast.success("Login Successful")
@@ -49,7 +56,7 @@ const Login = () => {
           <label className='label p-2'>
             <span className='text-base label-text'>Password:</span>
           </label>
-          <input type="password" placeholder='Enter Password' className='input input-bordered w-full h-10' onChange={(e) => setInputs({...inputs, password: e.target.value})} />
+          <input type="password" placeholder='Enter Password' className='input input-bordered w-full h-10' onChange={(e) => setInputs({...inputs, password: e.target.value})} onKeyDown={handleEnterKeyDown} />
         </div>
         
         <Link to={"/signup"} className='text-sm hover:underline hover:text-blue-600 mt-2 inline-block'>

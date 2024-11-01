@@ -10,16 +10,11 @@ const useGetMessages = () => {
     useEffect(() => {
         const getMessages = async() => {
             setLoading(true)
-            console.log(selectedConversation);
-            
             try {
                 const res = await axios.get(`/api/message/${selectedConversation._id}`)
-                console.log('messages response:', res);
-                
                 setMessages(res.data)
             } catch (error) {
                 toast.error(error.response.data.error)
-                
             } finally {
                 setLoading(false)
             }

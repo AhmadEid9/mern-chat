@@ -16,6 +16,13 @@ const Signup = () => {
         gender: '',
     })
 
+    const handleEnterKeyDown = async (event) => {    
+        if (event.key === "Enter")
+        {
+            handleSignup()
+        }
+      }
+
     const handleCheckboxChange = (gender) => {
         setInputs({...inputs, gender})
     }
@@ -87,14 +94,14 @@ const Signup = () => {
                 <label className='label p-2'>
                     <span className='text-base label-text'>Password:</span>
                 </label>
-                <input type="password" placeholder='Enter Password' className='input input-bordered w-full h-10' value={inputs.password} onChange={(e) => setInputs({ ...inputs, password: e.target.value })}/>
+                <input type="password" placeholder='Enter Password' className='input input-bordered w-full h-10' value={inputs.password} onChange={(e) => setInputs({ ...inputs, password: e.target.value })} onKeyDown={handleEnterKeyDown} />
             </div>
 
             <div>
                 <label className='label p-2'>
                     <span className='text-base label-text'>Confirm Password:</span>
                 </label>
-                <input type="password" placeholder='Confirm Password' className='input input-bordered w-full h-10' value={inputs.confirmPassword} onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })}/>
+                <input type="password" placeholder='Confirm Password' className='input input-bordered w-full h-10' value={inputs.confirmPassword} onChange={(e) => setInputs({ ...inputs, confirmPassword: e.target.value })} onKeyDown={handleEnterKeyDown} />
             </div>
 
             <GenderCheckbox selectedGender={inputs.gender} onCheckboxChange={handleCheckboxChange}/>
