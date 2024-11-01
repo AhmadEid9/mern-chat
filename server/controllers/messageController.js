@@ -3,7 +3,7 @@ import Message from "../db/models/messageModel.js";
 
 const sendMessage = async (req, res) => {
     try {
-        const { message } = req.body
+        const { message } = req.body        
         const {id: receiverId} = req.params
         const senderId = req.user._id
 
@@ -19,17 +19,12 @@ const sendMessage = async (req, res) => {
             })
             
         }
-
-        console.log(conversation);
         
         const newMessage = new Message({
             senderId,
             receiverId,
             message
         })
-
-        console.log(newMessage);
-        
 
         if (newMessage) {
 
@@ -55,7 +50,7 @@ const sendMessage = async (req, res) => {
 
 const getMessages = async (req, res) => {
     try {
-        const {id: userToChatId} = req.user
+        const {id: userToChatId} = req.params
         const senderId = req.user._id
         
         const conversation = await Conversation.findOne({
