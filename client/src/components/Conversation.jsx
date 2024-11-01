@@ -1,21 +1,23 @@
 import React from 'react'
-const Conversation = () => {
+import useConversation from '../zustand/useConversation'
+const Conversation = ({conversation, online, emoji, lastIdx}) => {
+    const {selectedConversation, setSelectedConversation} = useConversation()
   return (
     <div>
-        <div className="flex gap-2 hover:bg-sky-500 rounded p-2 py-1 cursor-pointer">
-            <div className="avatar online">
+        <div onClick={() => setSelectedConversation(conversation)} className={`flex gap-2 hover:bg-sky-500 rounded p-2 py-1 cursor-pointer ${selectedConversation == conversation._id ? 'bg-sky-500' : ''}`}>
+            <div className={`avatar ${online ? 'online' : 'offline'}`}>
                 <div className="w-12 rounded-full">
-                    <img src="https://avatar.iran.liara.run/public/boy" alt="User Image" />
+                    <img src={conversation.profilePic} alt="User Image" />
                 </div>
             </div>
             <div className="flex flex-col flex-1">
                 <div className="flex gap-3 justify-between">
-                    <p>User Name</p>
-                    <span className='text-xl'>🎃</span>
+                    <p>{conversation.fullname}</p>
+                    <span className='text-xl'>{emoji}</span>
                 </div>
             </div>
         </div>
-        <div className="divider my-0 py-0 h-1"/>
+        {!lastIdx && <div className="divider my-0 py-0 h-1"/>}
     </div>
   )
 }

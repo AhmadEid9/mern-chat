@@ -18,9 +18,8 @@ const Login = () => {
       if( !inputs.username || !inputs.password ){
         toast.error('All fields are required')
         return
-
       }
-      const res = await axios.post('http://localhost:4000/api/auth/login', inputs)
+      const res = await axios.post('/api/auth/login', inputs, {withCredentials: true})
 
       localStorage.setItem('chat-user', res.data)
       setAuthUser(res.data)

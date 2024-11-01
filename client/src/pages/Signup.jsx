@@ -39,7 +39,7 @@ const Signup = () => {
 
 
 
-            const res = await axios.post('http://localhost:4000/api/auth/register', inputs)
+            const res = await axios.post('/api/auth/register', inputs)
             
             console.log(res.data);
 
