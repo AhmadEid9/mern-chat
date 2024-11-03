@@ -1,5 +1,6 @@
 import Conversation from "../db/models/coversationModel.js";
 import Message from "../db/models/messageModel.js";
+import { getRecieverSocketId } from "../sockets/socket.js";
 
 const sendMessage = async (req, res) => {
     try {
@@ -29,16 +30,21 @@ const sendMessage = async (req, res) => {
         if (newMessage) {
 
             conversation.messages.push(newMessage._id)
-
-            //Soket.io functionality would be coded here
-
+            
             //Slow way to save
             // await conversation.save()
             // await newMessage.save()
 
             //Fast way to save
             await Promise.all([conversation.save(), newMessage.save()])
+
+            //Soket.io functionality would be coded here
+            const recieverSocketId = getRecieverSocketId()
+            if (recieverSocketId) {
+                io.to(recieverSocketId).emit("newMessage", newMessage)
+
         }
+    }
 
         return res.status(200).json(newMessage)
     } catch (error) {

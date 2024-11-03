@@ -8,8 +8,7 @@ import connectMongoDB from "./db/connectMongoDB.js";
 import authenticationRouter from "./routers/authenticationRouter.js" ;
 import messageRouter from "./routers/messageRouter.js" ;
 import userRouter from "./routers/userRouter.js" ;
-
-const app = express()
+import { app, server } from "./sockets/socket.js"
 
 app.use(cors({
     origin: '*',
@@ -28,7 +27,7 @@ app.use('/api/auth', authenticationRouter)
 app.use('/api/message', messageRouter)
 app.use('/api/users', userRouter)
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
     connectMongoDB();
     console.log("Server started on port 4000")
 })
