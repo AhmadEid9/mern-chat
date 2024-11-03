@@ -6,7 +6,7 @@ const ConversationsList = () => {
   return (
     <div className='overflow-auto'>
       {!loading ?
-      conversations.map((conversation, idx) => <Conversation key={conversation._id} online={true} conversation={conversation} emoji={getRandomEmoji()} lastIdx={idx === conversations.length - 1}/>)
+      conversations.map((conversation, idx) => <Conversation key={conversation._id} conversation={conversation} emoji={getRandomEmoji()} lastIdx={idx === conversations.length - 1}/>)
       :
       <div className="rounded-full">
         <span className='loading loading-spinner mx-auto'/>
