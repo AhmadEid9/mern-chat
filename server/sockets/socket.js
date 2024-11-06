@@ -10,20 +10,27 @@ const io = new Server(server, {
         methods: ["GET", "POST"]
 }})
 
+const userSocketMap = {}
+
 const getRecieverSocketId = (recieverId) => {
+    console.log(userSocketMap);
+
+    console.log('recieverId', recieverId);
+    
+    
     return userSocketMap[recieverId]
 }
 
-const userSocketMap = {}
 
 io.on("connection", (socket) => {
     console.log("a user connected",socket.id)
 
     const userId = socket.handshake.query.userId
-    if (userId !== undefined) userSocketMap[userId] = socket.id
+    if (userId !== "undefined") userSocketMap[userId] = socket.id
     
     io.emit("getOnlineUsers", Object.keys(userSocketMap))
-
+    console.log(userSocketMap);
+    
     socket.on("disconnect", () => {
         console.log("a user disconnected", socket.id)
         delete userSocketMap[userId]

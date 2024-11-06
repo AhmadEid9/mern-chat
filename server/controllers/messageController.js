@@ -1,6 +1,6 @@
 import Conversation from "../db/models/coversationModel.js";
 import Message from "../db/models/messageModel.js";
-import { getRecieverSocketId } from "../sockets/socket.js";
+import { getRecieverSocketId, io } from "../sockets/socket.js";
 
 const sendMessage = async (req, res) => {
     try {
@@ -39,7 +39,9 @@ const sendMessage = async (req, res) => {
             await Promise.all([conversation.save(), newMessage.save()])
 
             //Soket.io functionality would be coded here
-            const recieverSocketId = getRecieverSocketId()
+            const recieverSocketId = getRecieverSocketId(receiverId)
+            console.log(recieverSocketId);
+            
             if (recieverSocketId) {
                 io.to(recieverSocketId).emit("newMessage", newMessage)
 
