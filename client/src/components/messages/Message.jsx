@@ -6,14 +6,15 @@ import { format } from 'date-fns'
 const Message = ({message}) => {
   const {selectedConversation} = useConversation()
   const {authUser} = useAuthContext()
-  const authUserObj = JSON.parse(authUser)
   
 
-  const isSender = authUserObj._id === message.senderId
+  const isSender = authUser._id === message.senderId
   const chatClassName = isSender ? 'chat-end' : 'chat-start'
-  const profile = isSender ? authUserObj.profilePic : selectedConversation.profilePic
+  const profile = isSender ? authUser.profilePic : selectedConversation.profilePic
   const bubbleBgColor = isSender ? 'bg-blue-900' : 'bg-gray-700'
   const createdTime = format(message.createdAt, 'hh:mm a')
+  const shakeClass = message.shouldShake ? 'shake' : ''
+
   return (
     <div>
         <div className={`chat ${chatClassName}`}>
@@ -24,7 +25,7 @@ const Message = ({message}) => {
                     src={profile} />
                 </div>
             </div>
-            <div className={`chat-bubble ${bubbleBgColor}`}>{message.message}</div>
+            <div className={`chat-bubble ${bubbleBgColor} ${shakeClass}`}>{message.message}</div>
             <div className="chat-footer text-white opacity-50">{createdTime}</div>
         </div>
     </div>

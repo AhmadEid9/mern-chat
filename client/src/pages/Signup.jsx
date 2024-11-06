@@ -47,8 +47,6 @@ const Signup = () => {
 
 
             const res = await axios.post('/api/auth/register', inputs)
-            
-            console.log(res.data);
 
             if(res.error){
                 throw new Error(res.error);

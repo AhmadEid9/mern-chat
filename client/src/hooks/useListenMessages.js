@@ -1,20 +1,23 @@
 import { useEffect } from "react"
+
 import { useSocketContext } from "../context/SocketContext"
 import useConversation from "../zustand/useConversation"
 
 const useListenMessages = () => {
-  const { socket, onlineUsers } = useSocketContext()
+  const { socket } = useSocketContext()
   const {messages, setMessages} = useConversation()
 
   useEffect(() => {
-    if (socket){
-        socket?.on('newMessage', (message) => {
-            setMessages([...messages, message])
-        })
-    }
+    console.log("Listening for new messages...");
+    
+    socket?.on("newMessage", (newMessage) => {
+      newMessage.shouldShake = true
+      setMessages([...messages, newMessage])
+      console.log(newMessage, messages)
+    })
 
-    return () => socket?.off('newMessage')
-  }, [socket, messages, setMessages])
+    return () => socket?.off("newMessage")
+  }, [socket, setMessages, messages])
 }
 
 export default useListenMessages

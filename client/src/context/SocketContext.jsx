@@ -14,16 +14,16 @@ const SocketContextProvider = ({children}) => {
     const {authUser} = useAuthContext()
     useEffect(() => {
         if(authUser){
-            const socket = io('http://localhost:4000', {
+            const socket = io.connect('http://localhost:4000', {
                 query: {
                     userId: authUser._id
                 }
             })
-            // socket.emit('new-user', authUser._id)
             setSocket(socket)
 
             socket.on('getOnlineUsers', (users) => {
                 setOnlineUsers(users)
+                console.log(users);
             })
 
             return () => socket.close()

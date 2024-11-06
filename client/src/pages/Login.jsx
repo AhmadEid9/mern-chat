@@ -15,7 +15,7 @@ const Login = () => {
   const handleEnterKeyDown = async (event) => {
     if (event.key === "Enter")
     {
-      handleLogin()
+      await handleLogin()
     }
   }
 
@@ -27,9 +27,6 @@ const Login = () => {
         return
       }
       const res = await axios.post('/api/auth/login', inputs, {withCredentials: true})
-
-      console.log(res.data);
-      
 
       localStorage.setItem("chat-user", (JSON.stringify(res.data)));
       setAuthUser(res.data)
